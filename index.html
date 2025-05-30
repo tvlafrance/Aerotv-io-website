@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aero TV - Votre Service IPTV Premium en Qualité 4K/8K</title>
+    <meta name="description" content="Découvrez Aero TV, le service IPTV premium offrant plus de 30 000 chaînes, 40 000 films et plus de 9 000 séries en qualité 4K/8K. AeroTV est compatible avec tous vos appareils. Profitez d'une garantie satisfait ou remboursé.">
+    
+    <!-- Performance and SEO meta tags -->
+    <meta name="theme-color" content="#22c55e">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://aerotv.io/">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <!-- Preload critical resources -->
+    <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="styles.css"></noscript>
+    
+    <!-- Preload fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Load Font Awesome asynchronously -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"></noscript>
+    
+    <!-- Preload critical images -->
+    <link rel="preload" href="public/aerotv-logo.webp" as="image">
+    <link rel="preload" href="public/hero/IPTV-banner.webp" as="image">
+    <link rel="preload" href="public/hero/iptv-smarters.webp" as="image">
+    
+    <!-- Critical CSS for above-the-fold content -->
+    <style>
+        /* Critical CSS for immediate rendering */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; line-height: 1.6; color: #333; overflow-x: hidden; }
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 0; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo-img { height: 60px; width: auto; max-width: 200px; object-fit: contain; }
+        .hero { min-height: 100vh; display: flex; align-items: center; color: white; position: relative; overflow: hidden; padding-top: 100px; }
+        .hero-banner-bg { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: url('public/hero/IPTV-banner.webp'); background-size: cover; background-position: center; z-index: 1; }
+        .hero-banner-bg::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.75); z-index: 2; }
+        .hero-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 3; min-height: 600px; }
+        
+        /* Adjusted critical hero text styles for better fallback matching */
+        .hero-content h1 { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* Specific stack for H1 */
+            color: white; 
+            font-size: clamp(2.8rem, 7vw, 5.5rem); 
+            font-weight: 800; 
+            line-height: 1.1; /* Match Inter's line-height */
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7); 
+            margin-bottom: 1rem; 
+            letter-spacing: -0.02em; /* Example: slight adjustment for Inter */
+        }
+        .hero-content p.hero-subtitle { /* Targeting the subtitle specifically */
+             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* Specific stack for subtitle */
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            line-height: 1.6; /* Match Inter's line-height */
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 700px; /* Ensure max-width is set to prevent reflow */
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-h1-brand { font-size: 1em; font-weight: 800; display: inline; color: #4ade80; }
+        .btn { display: inline-block; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; }
+        .btn-primary { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: white; box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3); }
+        .hero-images { min-height: 500px; display: flex; flex-direction: column; align-items: center; gap: 2rem; position: relative; }
+        .iptv-interface { width: 100%; max-width: 500px; aspect-ratio: 5/3; }
+        .mobile-app { width: 100%; max-width: 200px; margin-top: -50px; margin-left: auto; margin-right: -20px; aspect-ratio: 1/2; }
+        .devices-row { width: 100%; max-width: 400px; margin-top: 1rem; aspect-ratio: 4/1; }
+        img { max-width: 100%; height: auto; }
+        @media (max-width: 768px) { .hero-container { grid-template-columns: 1fr; text-align: center; gap: 2rem; } .hero { padding-top: 80px; } }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            
+            <ul class="nav-menu">
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#pricing">Nos Abonnements IPTV</a></li>
+                <li><a href="installation-guide.html">Installation</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#footer">Contact</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-banner-bg"></div>
+       
+        
+        <!-- Floating Contact Buttons -->
+        <div class="floating-contacts">
+            <a href="https://wa.me/+212687585052" class="floating-btn whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Movies Section -->
+    <section id="movies" class="movies">
+        <div class="container">
+            <h2>Films et Séries <span class="highlight-text">Illimités</span></h2>
+            <p class="movies-subtitle">Découvrez des milliers de films et séries TV en qualité HD, 4K et 8K.</p>
+            
+            <!-- Movies Slider -->
+            <div class="movies-compatibility">
+                <div class="movies-slider">
+                    <div class="movie-slide">
+                        <div class="movie-card">
+                            <div class="movie-image">
+                                <img src="public/movies/aerotv-movies1.webp" alt="Collection Films 1" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="movie-slide">
+                        <div class="movie-card">
+                            <div class="movie-image">
+                                <img src="public/movies/aerotv-movies2.webp" alt="Collection Films 2" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="movie-slide">
+                        <div class="movie-card">
+                            <div class="movie-image">
+                                <img src="public/movies/aerotv-movies3.webp" alt="Collection Films 3" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="movie-slide">
+                        <div class="movie-card">
+                            <div class="movie-image">
+                                <img src="public/movies/aerotv-movies4.webp" alt="Collection Films 4" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="movie-slide">
+                        <div class="movie-card">
+                            <div class="movie-image">
+                                <img src="public/movies/aerotv-movies5.webp" alt="Collection Films 5" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="movie-slide">
+                        <div class="movie-card">
+                            <div class="movie-image">
+                                <img src="public/movies/aerotv-movies6.webp" alt="Collection Films 6" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="movie-slide">
+                        <div class="movie-card">
+                            <div class="movie-image">
+                                <img src="public/movies/aerotv-movies7.webp" alt="Collection Films 7" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="movie-slide">
+                        <div class="movie-card">
+                            <div class="movie-image">
+                                <img src="public/movies/aerotv-movies8.webp" alt="Collection Films 8" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="movie-slide">
+                        <div class="movie-card">
+                            <div class="movie-image">
+                                <img src="public/movies/aerotv-movies9.webp" alt="Collection Films 9" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="movie-slide">
+                        <div class="movie-card">
+                            <div class="movie-image">
+                                <img src="public/movies/aerotv-movies10.webp" alt="Collection Films 10" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="movie-slide">
+                        <div class="movie-card">
+                            <div class="movie-image">
+                                <img src="public/movies/movies-11.webp" alt="Collection Films 11" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="movie-slide">
+                        <div class="movie-card">
+                            <div class="movie-image">
+                                <img src="public/movies/moves12.webp" alt="Collection Films 12" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="movie-slide">
+                        <div class="movie-card">
+                            <div class="movie-image">
+                                <img src="public/movies/movies-14-aerotv.webp" alt="Collection Films 14" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="movie-slide">
+                        <div class="movie-card">
+                            <div class="movie-image">
+                                <img src="public/movies/moveis16-aero-tv.webp" alt="Collection Films 16" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="movie-slide">
+                        <div class="movie-card">
+                            <div class="movie-image">
+                                <img src="public/movies/aerotv-movies-18.webp" alt="Collection Films 18" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="movie-slide">
+                        <div class="movie-card">
+                            <div class="movie-image">
+                                <img src="public/movies/aero-tv-movies-20.webp" alt="Collection Films 20" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slider Navigation -->
+                <div class="movies-slider-nav">
+                    <button class="movies-nav-btn movies-prev-btn" aria-label="Films précédents">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="movies-nav-btn movies-next-btn" aria-label="Films suivants">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Slider Dots -->
+                <div class="movies-slider-dots">
+                    <span class="movies-dot active" data-slide="0"></span>
+                    <span class="movies-dot" data-slide="1"></span>
+                    <span class="movies-dot" data-slide="2"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Canals Section -->
+    <section id="canals" class="canals">
+        <div class="container">
+            <h2>Chaînes TV <span class="highlight-text">Premium</span></h2>
+            <p class="canals-subtitle">Accédez à des milliers de chaînes premium du monde entier en qualité cristalline.</p>
+            
+            <!-- Canals Slider -->
+            <div class="canals-compatibility">
+                <div class="canals-slider">
+                    <div class="canal-slide">
+                        <div class="canal-card">
+                            <div class="canal-image">
+                                <img src="public/canals/aerotv-canal.webp" alt="Collection Chaînes Premium 1" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="canal-slide">
+                        <div class="canal-card">
+                            <div class="canal-image">
+                                <img src="public/canals/aerotv-fox.webp" alt="Collection Chaînes Premium 2" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="canal-slide">
+                        <div class="canal-card">
+                            <div class="canal-image">
+                                <img src="public/canals/aerotk-ss.webp" alt="Collection Chaînes Premium 3" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="canal-slide">
+                        <div class="canal-card">
+                            <div class="canal-image">
+                                <img src="public/canals/aerotv-laliga.webp" alt="Collection Chaînes Premium 4" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="canal-slide">
+                        <div class="canal-card">
+                            <div class="canal-image">
+                                <img src="public/canals/aerotv-pl.webp" alt="Collection Chaînes Premium 5" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="canal-slide">
+                        <div class="canal-card">
+                            <div class="canal-image">
+                                <img src="public/canals/aerotv-tlc.webp" alt="Collection Chaînes Premium 6" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slider Navigation -->
+                <div class="canals-slider-nav">
+                    <button class="canals-nav-btn canals-prev-btn" aria-label="Chaînes précédentes">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="canals-nav-btn canals-next-btn" aria-label="Chaînes suivantes">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Slider Dots -->
+                <div class="canals-slider-dots">
+                    <span class="canals-dot active" data-slide="0"></span>
+                    <span class="canals-dot" data-slide="1"></span>
+                    <span class="canals-dot" data-slide="2"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscription Plans Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2>Tarifs et Abonnements Aero TV</h2>
+            <p class="pricing-subtitle">Des plans d'abonnement IPTV conviviaux et abordables que vous pouvez acheter selon votre budget.</p>
+            
+
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h3>1 Mois</h3>
+                            <div class="price">
+                                <span class="amount">19.99</span>
+                                <span class="currency">€</span>
+                            </div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-plus"></i> 📺 +30000 chaînes</li>
+                            <li><i class="fas fa-plus"></i> 🎬 +49000 VOD (Films & Séries)</li>
+                            <li><i class="fas fa-check"></i> 🔴 Streams en direct 24/7</li>
+                            <li><i class="fas fa-check"></i> ✨ Qualité 4K, HD et SD</li>
+                            <li><i class="fas fa-check"></i> 📱 Appareils compatibles</li>
+                            <li><i class="fas fa-check"></i> 🎧 Support client 24/7</li>
+                        </ul>
+                        <div class="pricing-services">
+                            <img src="public/aerotv-services.webp" alt="Services Inclus" class="services-img">
+                        </div>
+                        <a href="https://sufae.com/step/1m/" class="btn btn-primary" target="_blank">🛒 Commander</a>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h3>3 Mois</h3>
+                            <div class="price">
+                                <span class="amount">29.99</span>
+                                <span class="currency">€</span>
+                            </div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-plus"></i> 📺 +30000 chaînes</li>
+                            <li><i class="fas fa-plus"></i> 🎬 +49000 VOD (Films & Séries)</li>
+                            <li><i class="fas fa-check"></i> 🔴 Streams en direct 24/7</li>
+                            <li><i class="fas fa-check"></i> ✨ Qualité 4K, HD et SD</li>
+                            <li><i class="fas fa-check"></i> 📱 Appareils compatibles</li>
+                            <li><i class="fas fa-check"></i> 🎧 Support client 24/7</li>
+                        </ul>
+                        <div class="pricing-services">
+                            <img src="public/aerotv-services.webp" alt="Services Inclus" class="services-img">
+                        </div>
+                        <a href="https://sufae.com/step/3m/" class="btn btn-primary" target="_blank">🛒 Commander</a>
+                    </div>
+                    
+                    <div class="pricing-card popular">
+                        <div class="popular-badge">Le Plus Populaire</div>
+                        <div class="pricing-header">
+                            <h3>12 Mois</h3>
+                            <div class="price">
+                                <span class="amount">59.99</span>
+                                <span class="currency">€</span>
+                            </div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-plus"></i> 📺 +30000 chaînes</li>
+                            <li><i class="fas fa-plus"></i> 🎬 +49000 VOD (Films & Séries)</li>
+                            <li><i class="fas fa-check"></i> 🔴 Streams en direct 24/7</li>
+                            <li><i class="fas fa-check"></i> ✨ Qualité 4K, HD et SD</li>
+                            <li><i class="fas fa-check"></i> 📱 Appareils compatibles</li>
+                            <li><i class="fas fa-check"></i> 🎧 Support client 24/7</li>
+                        </ul>
+                        <div class="pricing-services">
+                            <img src="public/aerotv-services.webp" alt="Services Inclus" class="services-img">
+                        </div>
+                        <a href="https://sufae.com/step/12m/" class="btn btn-primary" target="_blank">🛒 Commander</a>
+                    </div>
+                    
+                    <div class="pricing-card special">
+                        <div class="special-badge">💥 OFFRE SPÉCIALE 🎉</div>
+                        <div class="pricing-header">
+                            <h3>24 Mois</h3>
+                            <div class="price">
+                                <span class="amount">89.99</span>
+                                <span class="currency">€</span>
+                            </div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-plus"></i> 📺 +30000 chaînes</li>
+                            <li><i class="fas fa-plus"></i> 🎬 +49000 VOD (Films & Séries)</li>
+                            <li><i class="fas fa-check"></i> 🔴 Streams en direct 24/7</li>
+                            <li><i class="fas fa-check"></i> ✨ Qualité 4K, HD et SD</li>
+                            <li><i class="fas fa-check"></i> 📱 Appareils compatibles</li>
+                            <li><i class="fas fa-check"></i> 🎧 Support client 24/7</li>
+                        </ul>
+                        <div class="pricing-services">
+                            <img src="public/aerotv-services.webp" alt="Services Inclus" class="services-img">
+                        </div>
+                        <a href="https://sufae.com/step/24m/" class="btn btn-primary" target="_blank">🛒 Commander</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Methods -->
+           
+        </div>
+    </section>
+
+    <!-- Apps Section -->
+    <section id="apps" class="apps">
+        <div class="container">
+            <h2>Compatible avec tous vos <span class="highlight-text">appareils</span></h2>
+            <p class="apps-subtitle">AeroTV fonctionne sur tous vos appareils préférés. Regardez où vous voulez, quand vous voulez.</p>
+            
+            <!-- Device Compatibility Slider -->
+            <div class="device-compatibility">
+                <div class="devices-slider">
+                    <div class="device-slide">
+                        <div class="device-card">
+                            <div class="device-image">
+                                <img src="public/devices/aero-tv-samsung-smart.webp" alt="Samsung Smart TV" loading="lazy">
+                            </div>
+                            <div class="device-info">
+                                <h4>Samsung</h4>
+                                <p>Smart TV</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="device-slide">
+                        <div class="device-card">
+                            <div class="device-image">
+                                <img src="public/devices/boitier-android-box-aero-tv.webp" alt="Android TV Box" loading="lazy">
+                            </div>
+                            <div class="device-info">
+                                <h4>Boîtier IPTV</h4>
+                                <p>Abonnement IPTV</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="device-slide">
+                        <div class="device-card">
+                            <div class="device-image">
+                                <img src="public/devices/apple-aero-tv.webp" alt="Apple TV" loading="lazy">
+                            </div>
+                            <div class="device-info">
+                                <h4>Apple</h4>
+                                <p>iPhone & iPad</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="device-slide">
+                        <div class="device-card">
+                            <div class="device-image">
+                                <img src="public/devices/android-system-aero-tv.webp" alt="Android" loading="lazy">
+                            </div>
+                            <div class="device-info">
+                                <h4>Android</h4>
+                                <p>Téléphones & Tablettes</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="device-slide">
+                        <div class="device-card">
+                            <div class="device-image">
+                                <img src="public/devices/aero-tv-roku.webp" alt="Roku" loading="lazy">
+                            </div>
+                            <div class="device-info">
+                                <h4>Roku</h4>
+                                <p>Lecteur IPTV</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="device-slide">
+                        <div class="device-card">
+                            <div class="device-image">
+                                <img src="public/devices/firetv-aerotv.webp" alt="Amazon Fire TV" loading="lazy">
+                            </div>
+                            <div class="device-info">
+                                <h4>Amazon</h4>
+                                <p>Fire TV Stick</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="device-slide">
+                        <div class="device-card">
+                            <div class="device-image">
+                                <img src="public/devices/aerotv-androidtv.webp" alt="Android TV" loading="lazy">
+                            </div>
+                            <div class="device-info">
+                                <h4>Android TV</h4>
+                                <p>Tous modèles</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="device-slide">
+                        <div class="device-card">
+                            <div class="device-image">
+                                <img src="public/devices/lg-smart-tv-aero-tv.webp" alt="LG Smart TV" loading="lazy">
+                            </div>
+                            <div class="device-info">
+                                <h4>LG</h4>
+                                <p>Smart TV</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slider Navigation -->
+                <div class="slider-nav">
+                    <button class="nav-btn prev-btn" aria-label="Appareils précédents">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="nav-btn next-btn" aria-label="Appareils suivants">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Slider Dots -->
+                <div class="slider-dots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                </div>
+            </div>
+            
+
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Les Atouts d'Aero TV : Compatibilité et Performance</h2>
+            <p class="features-subtitle">Profitez d'un accès mondial grâce à notre service. Pour plus d'informations, contactez-nous et attendez-vous à une réponse rapide.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <h3>Chaînes Premium</h3>
+                    <p>Nous offrons plus de 30 000 chaînes de télévision. Et le nombre de chaînes TV augmente de jour en jour. Rien ne peut égaler la qualité de nos chaînes en streaming.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <h3>Films VOD</h3>
+                    <p>Accédez à plus de 40 000 films et toutes les dernières sorties. Nous avons presque tous les films populaires, y compris les mieux notés par IMDB.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h3>Séries VOD</h3>
+                    <p>Nous disposons également d'un grand nombre (+ de 9 000) de séries TV dans notre section VOD. Regardez tous les nouveaux épisodes de vos séries préférées sur votre appareil.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-snowflake"></i>
+                    </div>
+                    <h3>Technologie Anti-Gel</h3>
+                    <p>Nos services utilisent la dernière technologie H264, offrant la meilleure compression et qualité. La technologie H264 permet de vous offrir un streaming anti-gel.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Stabilité à 99,99%</h3>
+                    <p>Nous essayons toujours d'offrir une meilleure qualité d'abonnement IPTV à nos utilisateurs. Nous assurons une disponibilité de 99,99% de notre serveur de streaming.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Support en Ligne 24/7</h3>
+                    <p>Notre équipe de support est toujours prête à aider nos précieux clients 24/7. Notre équipe fournit une assistance pour les problèmes de facturation et techniques.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2>Questions Fréquemment Posées</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Qu'est-ce que l'IPTV ?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>L'IPTV (Internet Protocol Television) vous permet de regarder du contenu télévisuel via une connexion Internet au lieu du câble ou du satellite traditionnel. Elle donne accès à des chaînes de télévision en direct, des films et des séries sur n'importe quel appareil connecté à Internet.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>La transaction est-elle sécurisée ?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oui, toutes les transactions sont entièrement sécurisées et protégées par PayPal et le cryptage SSL. Vos informations de paiement ne sont jamais stockées sur nos serveurs.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Offrez-vous des remboursements ?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oui, nous offrons une garantie de remboursement de 7 jours. Si vous n'êtes pas satisfait de notre service, contactez-nous simplement et nous traiterons votre remboursement immédiatement.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Comment recevoir mes identifiants ?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Après le paiement de votre abonnement, vous recevrez vos identifiants de connexion par e-mail dans les 5 minutes. Vérifiez votre boîte de réception et votre dossier spam. Si vous ne les recevez pas, contactez notre équipe de support.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Puis-je l'utiliser sur plusieurs appareils ?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oui, selon votre plan. Notre plan 1 écran fonctionne sur un appareil, le plan 2 écrans sur deux appareils simultanément, et le plan 3 écrans sur trois appareils simultanément.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Quelle vitesse Internet est nécessaire ?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Pour le streaming HD, nous recommandons au moins 10 Mbps. Pour le contenu 4K, 25 Mbps ou plus sont recommandés pour la meilleure expérience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>Ce que nos clients disent d'Aero TV</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"AeroTV a complètement transformé mon expérience de divertissement. La qualité 4K est incroyable et la sélection de chaînes est inégalée. L'installation a été simple et le support est excellent !"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="author-info">
+                                <h4>Chloé Dubois</h4>
+                                <span>Cliente Premium</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"J'ai essayé de nombreux services IPTV, mais AeroTV se distingue vraiment. La fiabilité est exceptionnelle, je n'ai jamais eu de problèmes de mise en mémoire tampon, et la couverture sportive est fantastique. Je recommande vivement !"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="author-info">
+                                <h4>Lucas Martin</h4>
+                                <span>Fan de Sport</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Meilleur rapport qualité-prix pour un service IPTV ! La bibliothèque de films est immense et toujours mise à jour. Le service client a répondu en quelques minutes lorsque j'avais des questions. Service très professionnel."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="author-info">
+                                <h4>Manon Bernard</h4>
+                                <span>Passionnée de Films</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer id="footer" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="public/aerotv-logo.webp" alt="AeroTV Logo" class="logo-img">
+                    </div>
+                    <p>AeroTV - Service IPTV premium offrant un accès illimité au contenu mondial avec une qualité époustouflante.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Liens Rapides</h3>
+                    <ul>
+                        <li><a href="#home">Accueil</a></li>
+                        <li><a href="#features">Fonctionnalités</a></li>
+                        <li><a href="#pricing">Tarifs</a></li>
+                        <li><a href="#apps">Applications</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="https://wa.me/+212687585052" target="_blank">Nous Contacter</a></li>
+                        <li><a href="installation-guide.html">Guide d'Installation</a></li>
+                        <li><a href="index.html#faq">FAQ</a></li>
+                        <li><a href="terms-of-service.html">Conditions d'Utilisation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Informations de Contact</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:contact@aerotv.io" style="color: inherit; text-decoration: none;">contact@aerotv.io</a></p>
+                        <p><a href="https://wa.me/+212687585052" target="_blank" style="color: inherit; text-decoration: none;"><i class="fab fa-whatsapp"></i> WhatsApp</a></p>
+                        <p><i class="fas fa-clock"></i> Support 24/7</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AeroTV. Tous droits réservés.</p>
+                <div class="footer-links">
+                    <a href="privacy-policy.html">Politique de Confidentialité</a>
+                    <a href="terms-of-service.html">Conditions de Service</a>
+                    <a href="refund-policy.html">Politique de Remboursement</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+</html> 
